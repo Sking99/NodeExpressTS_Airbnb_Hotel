@@ -1,5 +1,4 @@
-// import { dbConfig } from './index';
-import dotenv from 'dotenv';
+const dotenv = require('dotenv');
 dotenv.config();
 
 const config = {
@@ -7,9 +6,9 @@ const config = {
         username: process.env.DB_USER,
         password: process.env.DB_PASSWORD,
         database: process.env.DB_NAME,
-        host: process.env.DB_HOST ,
+        host: process.env.DB_HOST,
         dialect: 'mysql',
     },
 }
 
-export default config;
+module.exports = config;
