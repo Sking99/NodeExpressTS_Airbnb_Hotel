@@ -6,7 +6,6 @@ import { appErrorHandler, genericErrorHandler } from './middlewares/error.middle
 import logger from './config/logger.config';
 import { attachCorrelationIdMiddleware } from './middlewares/correlation.middleware';
 import sequelize from './db/models/sequelize';
-import Hotel from './db/models/hotel';
 const app = express();
 
 app.use(express.json());
@@ -30,21 +29,8 @@ app.use(genericErrorHandler);
 
 app.listen(serverConfig.PORT, async () => {
     logger.info(`Server is running on http://localhost:${serverConfig.PORT}`);
-    logger.info(`Press Ctrl+C to stop the server.`);
+    // logger.info(`Press Ctrl+C to stop the server.`);
 
-    try{
-        await sequelize.authenticate();
-        logger.info('Database connection has been established successfully.');
-
-        const hotel = await Hotel.create({
-            name: 'Sample Hotel',
-            address: '123 Sample Street',
-            location: 'Sample City',
-            rating: 4.5,
-            rating_count: 100
-        })
-        logger.info('Hotel created with details: ', hotel.toJSON());
-    }catch (error) {
-        logger.error('Something went wrong with DB connectivity');
-    }
+    await sequelize.authenticate();
+    logger.info('Database connection has been established successfully.');
 });
